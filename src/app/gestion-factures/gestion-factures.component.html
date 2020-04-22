@@ -1,0 +1,156 @@
+<div class="container contact-form">
+    <div class="contact-image">
+
+    </div>
+    <form method="post" [formGroup]="OctoForm">
+        <h3>Création des factures manuelles</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input type="date" name="txtName" class="form-control" placeholder="Entrer le date ?" formControlName="date" />
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Entrer la location ex:(796 Silver Harbour, TX 79273, US)" formControlName="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors && !efface }" />
+                    <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                        <div *ngIf="f.location.errors.required">location is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" formControlName="client" id="client" [ngClass]="{ 'is-invalid': submitted && clt_resp && !efface}">
+                        <option>Veuillez sélectionner votre client souhaite?</option>
+                        <option>Marjane</option>
+                        <option >Carrefour</option>
+                        <option >BMP Dariba</option>
+                        <option >NUVOLTEK</option>
+                      </select>
+                    <div *ngIf="submitted && clt_resp" class="invalid-feedback">
+                        <div>client is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" id="num_fac" formControlName="num_fac" [ngClass]="{ 'is-invalid': submitted && reg_resp && !efface}">
+                    <option>Veuillez sélectionner le Règlement souhaité?</option>
+                    <option>Chéque</option>
+                    <option>Espéce</option>
+                    <option>Carte Bancaire</option>
+                    <option>Bitcoin</option>
+                    </select>
+                    <div *ngIf="submitted && f.num_fac.errors" class="invalid-feedback">
+                        <div>Numero de facture is required</div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <button class="btn btn-lg btn-info" value="Ajouter" (click)="Ajouter()">
+                        Ajouter
+                    <i class="fa fa-shopping-cart"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="cars">
+                    <div class="form-group">
+                        <select class="form-control" formControlName="products" id="products" [ngClass]="{ 'is-invalid': submitted && pr_resp && !efface}">
+                            <option>Veuillez sélectionner votre produit souhaite?</option>
+                            <option>Pomme</option>
+                            <option >Tomate</option>
+                            <option >Oil</option>
+                            <option >Cake</option>
+                            <option>iPhone 6s</option>
+                            <option>television</option>
+                            <option>Macbook Pro</option>
+                            <option>T-shirt</option>
+                            <option>C# Book</option>
+                            <option>Notebook</option>
+                          </select>
+                        <div *ngIf="submitted && pr_resp" class="invalid-feedback">
+                            <div>produits is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Enter mail ex:john@example.com" formControlName="mail" [ngClass]="{ 'is-invalid': submitted && f.mail.errors && !efface}" />
+                    <div *ngIf="submitted && f.mail.errors" class="invalid-feedback">
+                        <div *ngIf="f.mail.errors.required">Email is required</div>
+                        <div *ngIf="f.mail.errors.email">Email must be a valid email address</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" placeholder="Enter Quantite?" formControlName="qte" [ngClass]="{ 'is-invalid': submitted && f.qte.errors && !efface}" />
+                    <div *ngIf="submitted && f.qte.errors" class="invalid-feedback">
+                        <div *ngIf="f.qte.errors.required">Quantite is required</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-lg btn-danger" value="Effacer" (click)="effacer()">
+                    Effacer
+                    <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="col-lg-12">
+
+                <h2>Votre panier</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <th>ID</th>
+                        <th>Nom du produit</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                    </thead>
+                    <tbody id="ok">
+                        <tr *ngFor="let facture of arr">
+                            <td>{{facture.id}}</td>
+                            <td>{{facture.products}}</td>
+                            <td>${{facture.montant_ttc}}</td>
+                            <td>{{facture.qte}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span class="text-center" *ngIf="!hide">
+      Votre Panier est vide.
+    </span>
+                <div class="clearfix"></div>
+                <span class="float-right alert alert-success">Prix Total:$ {{total_price}}</span>
+                <button class="float-left alert alert-danger" (click)="Videz()">Videz votre panier</button>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button data-toggle="modal" href="#infos" class="btn btn-primary" *ngIf="arr.length>0">
+                    Imprimer la facture
+                    <i class="fa fa-print" aria-hidden="true"></i>
+                </button>
+
+                <div class="modal" id="infos">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Plus Informations</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Voulez-vous imprimer la facture?<br>ok,juste clicker sur la button imprimer au-desous!</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" (click)="generatePdf()">Imprimer la facture</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--table-->
+            </div>
+        </div>
+    </form>
+
+
+</div>

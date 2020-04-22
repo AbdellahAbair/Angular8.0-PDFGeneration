@@ -1,0 +1,18 @@
+.nav-link {
+    text-decoration-color: white;
+}
+
+.image_aba {
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    display: block;
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+}
+
+.video-fluid {
+    width: 100%;
+    height: auto;
+}
