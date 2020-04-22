@@ -28,7 +28,7 @@ if you wanna test this ,just be sure that you complete adding all informations i
 
 ok,if you do this you will show the button name "Imprimer" in frensh that means print in english.
 
-just click in it and you will the result.
+just click in it and you will see the result.
 
 
 ## Development server
